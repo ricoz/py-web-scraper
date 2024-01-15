@@ -6,6 +6,8 @@ import requests
 import re
 # Code here - Import BeautifulSoup library
 
+from bs4 import BeautifulSoup
+
 # Code ends here
 
 # function to get the html source text of the medium article
@@ -14,6 +16,8 @@ def get_page():
 	
 	# Code here - Ask the user to input "Enter url of a medium article: " and collect it in url
 	
+	url = input("Enter url of a medium article: ")
+
 	# Code ends here
 	
 	# handling possible error
@@ -22,6 +26,10 @@ def get_page():
 		sys.exit(1)
 
 	# Code here - Call get method in requests object, pass url and collect it in res
+	
+	# 403 error fix from https://stackoverflow.com/questions/38489386/how-to-fix-403-forbidden-errors-when-calling-apis-using-python-requests
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}	
+	res = requests.get(url, headers=headers)
 	
 	# Code ends here
 
@@ -57,6 +65,8 @@ def save_file(text):
 	
 	# Code here - write a file using with (2 lines)
 	
+	with open(fname, 'w') as f:
+		f.write(text)
 
 	# Code ends here
 
